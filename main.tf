@@ -5,6 +5,14 @@ terraform {
       version = "1.23.0"
     }
   }
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "PR1SM"
+
+    workspaces {
+      name = "terraform-config"
+    }
+  }
 }
 
 variable "hcloud_token" {}
