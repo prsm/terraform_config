@@ -27,3 +27,8 @@ resource "hcloud_server" "pr1sm-hub" {
   server_type = "cpx31"
   backups     = true
 }
+
+resource "hcloud_ssh_key" "default" {
+  name = "devenv jonas schultheiss"
+  public_key = var.ssh_key
+}
