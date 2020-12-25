@@ -27,6 +27,11 @@ resource "hcloud_server" "pr1sm-hub" {
   image       = "ubuntu-20.04"
   server_type = "cpx31"
   backups     = true
+  user_data = << EOF
+    #! /bin/bash
+    sudo apt-get update
+    sudo apt-get install -
+  EOF
 }
 
 resource "hcloud_ssh_key" "default" {
