@@ -1,5 +1,4 @@
-# cloud init config
-
+#cloud-config
 # create user groups
 groups:
   - ubuntu: [root, sys]
@@ -14,7 +13,6 @@ users:
     primary_group: pr1sm
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users, admin
-    ssh_import_id: false
     lock_passwd: false
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjAYD78h5ASSKksKmvrfg8GV5l0RKus2rCTv5cpWIUyC+9M1gqzJWplxslc1qzGY+nRfj1YqPKzBKtr3N2500vqQzDJhBROXItlZWLoQrHqihGacwQoOHJE6R5KzlK0RJf+aXY91cXribDooGzuUPoA/lIIoDOTvXkDEXyMbF7BoxmVq2i2zfmthVGLyLDIBOQNopqtu28XhG9+KXGLNQjJ3v7VoOr3jmD1na+z/IMjbrP6tlf3tgtbLPiuRhIYwHT3FNCpQuvJ8wxbsKK1eDpmFeprLMzIbyq4LCQRhwaYAH4DqKbt6UPXPnbUiwqi3y2Gyhyd9aBNFpqnGS1izaEpROvDRgLTSD++3mWUaIJlJKJKk4ZfUVvXyb8PdAtwXAxZ3q3nMV2euIv+nEdQeE+aeirCyvtaEDJP4NcAr3EpDLnMEr0+yrGos+JLONpvn+gdBb9nC8CaJ/e2I+fmR7CDznndMdRoB93SygjTXNR5Us+laqj++XHF4VkLLXZrR0= quest1onmark@devenv.local
@@ -31,7 +29,7 @@ packages:
   - gnupg-agent
   - software-properties-common
 
-#
+# install stuff
 runcmd:
   - sudo su sysadmin
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -41,6 +39,11 @@ runcmd:
     stable"
   - sudo apt-get update
   - sudo apt-get install docker-ce docker-ce-cli containerd.io
+  - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  - sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  - sudo apt-get update && sudo apt-get install nomad
+  - sudo apt-get install consul
+  - sudo apt-get install vault
 
 # log that init is done
 final_message: 'System created after $UPTIME seconds.'
