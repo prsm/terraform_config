@@ -1,0 +1,46 @@
+# cloud init config
+
+# create user groups
+groups:
+  - ubuntu: [root, sys]
+  - pr1sm
+
+# create new default user
+users:
+  - default
+  - name: sysadmin
+    gecos: sysadmin
+    shell: /bin/bash
+    primary_group: pr1sm
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    ssh_import_id: false
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjAYD78h5ASSKksKmvrfg8GV5l0RKus2rCTv5cpWIUyC+9M1gqzJWplxslc1qzGY+nRfj1YqPKzBKtr3N2500vqQzDJhBROXItlZWLoQrHqihGacwQoOHJE6R5KzlK0RJf+aXY91cXribDooGzuUPoA/lIIoDOTvXkDEXyMbF7BoxmVq2i2zfmthVGLyLDIBOQNopqtu28XhG9+KXGLNQjJ3v7VoOr3jmD1na+z/IMjbrP6tlf3tgtbLPiuRhIYwHT3FNCpQuvJ8wxbsKK1eDpmFeprLMzIbyq4LCQRhwaYAH4DqKbt6UPXPnbUiwqi3y2Gyhyd9aBNFpqnGS1izaEpROvDRgLTSD++3mWUaIJlJKJKk4ZfUVvXyb8PdAtwXAxZ3q3nMV2euIv+nEdQeE+aeirCyvtaEDJP4NcAr3EpDLnMEr0+yrGos+JLONpvn+gdBb9nC8CaJ/e2I+fmR7CDznndMdRoB93SygjTXNR5Us+laqj++XHF4VkLLXZrR0= quest1onmark@devenv.local
+
+# update && upgrade apt db on first boot
+package_update: true
+package_upgrade: true
+
+# install packages
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+
+#
+runcmd:
+  - sudo su sysadmin
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+  - sudo apt-get update
+  - sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+# log that init is done
+final_message: 'System created after $UPTIME seconds.'

@@ -6,13 +6,17 @@ terraform {
     }
   }
   backend "remote" {
-    hostname     = "app.terraform.io"
+    hostname = "app.terraform.io"
     organization = "PR1SM"
 
     workspaces {
       name = "terraform-config"
     }
   }
+}
+
+data "template_file" "user_data" {
+  template = file("./cloud_init.yaml")
 }
 
 variable "hcloud_token" {}
@@ -26,11 +30,11 @@ resource "hcloud_server" "pr1sm-hub" {
   name        = "pr1sm-hub"
   image       = "ubuntu-20.04"
   server_type = "cpx31"
-  location    = "nbg1"
   backups     = true
+  user_data = data.template_file.user_data.rendered
 }
 
 resource "hcloud_ssh_key" "default" {
-  name       = "devenv jonas schultheiss"
+  name = "devenv jonas schultheiss"
   public_key = var.ssh_key
 }
