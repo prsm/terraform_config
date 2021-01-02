@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "remote" {
-    hostname = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "PR1SM"
 
     workspaces {
@@ -31,10 +31,11 @@ resource "hcloud_server" "pr1sm-hub" {
   image       = "ubuntu-20.04"
   server_type = "cpx31"
   backups     = true
-  user_data = data.template_file.user_data.rendered
+  location    = "nbg1"
+  user_data   = data.template_file.user_data.rendered
 }
 
 resource "hcloud_ssh_key" "default" {
-  name = "devenv jonas schultheiss"
+  name       = "devenv jonas schultheiss"
   public_key = var.ssh_key
 }
