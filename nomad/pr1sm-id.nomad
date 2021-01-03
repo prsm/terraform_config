@@ -14,12 +14,13 @@ job "PR1SM-ID" {
           "DSN=memory"
         ]
       }
+      resources {
+        cpu = 500
+        memory = 1000
+      }
+
     }
 
-    resources {
-      cpu = 500
-      memory = 1000
-    }
 
     // volume "kratos-db" {
     //   type      = "host"
