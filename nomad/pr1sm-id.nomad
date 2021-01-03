@@ -2,6 +2,12 @@ job "PR1SM-ID" {
   datacenters = ["dc1"]
 
   group "kratos" {
+
+    volume "kratos-db" {
+      type      = "host"
+      source    = "kratos-pgdata"
+      read_only = false
+    }
     task "db" {
       driver = "docker"
 
