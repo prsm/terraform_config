@@ -4,6 +4,11 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "1.23.0"
     }
+
+    nomad = {
+      source  = "hashicorp/nomad"
+      version = "1.4.11"
+    }
   }
   backend "remote" {
     hostname     = "app.terraform.io"
@@ -21,6 +26,7 @@ data "template_file" "user_data" {
 
 variable "hcloud_token" {}
 variable "ssh_key" {}
+variable "nomad_address" {}
 
 provider "hcloud" {
   token = var.hcloud_token
@@ -39,3 +45,8 @@ resource "hcloud_ssh_key" "default" {
   name       = "devenv jonas schultheiss"
   public_key = var.ssh_key
 }
+
+// provider "nomad" {
+//   address = "http://nomad.mycompany.com:4646"
+//   region  = "us-east-2"
+// }

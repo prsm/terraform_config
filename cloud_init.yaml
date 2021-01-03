@@ -1,5 +1,5 @@
 #cloud-config
-# create user groups
+#create user groups
 groups:
   - ubuntu: [root, sys]
   - pr1sm
@@ -41,6 +41,17 @@ runcmd:
   - sudo apt-get update && sudo apt-get install nomad
   - sudo apt-get install consul
   - sudo apt-get install vault
+  - sudo systemctl enable docker
+  - sudo systemctl enable nomad
+  - sudo systemctl enable consul
+  - sudo systemctl enable vault
 
 # log that init is done
 final_message: 'System created after $UPTIME seconds.'
+
+power_state:
+  delay: 'now'
+  mode: reboot
+  message: Rebooting now
+  timeout: 30
+  condition: True
