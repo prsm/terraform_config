@@ -5,10 +5,10 @@ terraform {
       version = "1.23.0"
     }
 
-    // nomad = {
-    //   source  = "hashicorp/nomad"
-    //   version = "1.4.11"
-    // }
+    nomad = {
+      source  = "hashicorp/nomad"
+      version = "1.4.11"
+    }
   }
   backend "remote" {
     hostname     = "app.terraform.io"
@@ -26,7 +26,7 @@ data "template_file" "user_data" {
 
 variable "hcloud_token" {}
 variable "ssh_key" {}
-// variable "nomad_address" {}
+variable "nomad_address" {}
 
 provider "hcloud" {
   token = var.hcloud_token
@@ -46,11 +46,11 @@ resource "hcloud_ssh_key" "default" {
   public_key = var.ssh_key
 }
 
-// provider "nomad" {
-//   address = var.nomad_address
-//   region  = "global"
-// }
+provider "nomad" {
+  address = var.nomad_address
+  region  = "global"
+}
 
-// resource "nomad_job" "hello-world" {
-//   jobspec = file("./nomad/hello-world.nomad")
-// }
+resource "nomad_job" "pr1sm-id" {
+  jobspec = file("./nomad/pr1sm-id.nomad")
+}
