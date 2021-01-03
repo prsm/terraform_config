@@ -1,6 +1,13 @@
 job "PR1SM-ID" {
   datacenters = ["dc1"]
 
+  type = "service"
+
+  update {
+    stagger      = "30s"
+    max_parallel = 2
+  }
+
   group "kratos" {
 
     volume "kratos-db" {
