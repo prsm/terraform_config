@@ -38,7 +38,6 @@ resource "hcloud_server" "pr1sm-hub" {
   server_type = "cpx31"
   backups     = true
   location    = "nbg1"
-  ipv4_address = "116.203.212.65"
   user_data   = data.template_file.user_data.rendered
 }
 
