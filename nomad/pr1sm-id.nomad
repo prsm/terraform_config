@@ -8,6 +8,11 @@ job "PR1SM-ID" {
 
       config {
         image = "pr1smgg/kratos:latest"
+
+        args = [
+          "-e",
+          "DSN=memory"
+        ]
       }
       resources {
         cpu = 500
