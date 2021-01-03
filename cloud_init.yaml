@@ -41,6 +41,9 @@ runcmd:
   - sudo apt-get update && sudo apt-get install nomad
   - sudo apt-get install consul
   - sudo apt-get install vault
+  - sudo apt-get install postgresql
+  - sudo apt-get install postgresql-contrib
+  - sudo apt-get install sqlite3
   - sudo systemctl enable docker
   - sudo systemctl enable nomad
   - sudo systemctl enable consul
