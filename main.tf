@@ -39,6 +39,11 @@ resource "hcloud_server" "pr1sm-hub" {
   backups     = true
   location    = "nbg1"
   user_data   = data.template_file.user_data.rendered
+
+    provisioner "file" {
+    source      = file("./kratos/.kratos.yaml")
+    destination = "/home/sysadmin/"
+  }
 }
 
 resource "hcloud_ssh_key" "default" {
