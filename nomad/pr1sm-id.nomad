@@ -10,7 +10,7 @@ job "PR1SM-ID" {
 
   group "kratos" {
 
-    volume "kratos-db" {
+    volume "kratos-pgdata" {
       type      = "host"
       source    = "kratos-pgdata"
       read_only = false
@@ -39,6 +39,7 @@ job "PR1SM-ID" {
 
       config {
         image = "postgres:13-alpine"
+      }
 
       env {
         POSTGRES_USER = "kratos-admin"
@@ -57,10 +58,10 @@ job "PR1SM-ID" {
         //   "-e",
         //   "PGDATA=/etc/.kratos/pgdata"
         // ]
-      }
+      
 
       volume_mount {
-        volume      = "kratos-db"
+        volume      = "kratos-pgdata"
         destination = "/etc/.kratos"
         read_only   = false
       }

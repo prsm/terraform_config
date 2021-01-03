@@ -51,15 +51,6 @@ provider "nomad" {
   region  = "global"
 }
 
-resource "nomad_volume" "mysql_volume" {
-  type            = "csi"
-  volume_id       = "kratos-pgdata"
-  name            = "kratos-pgdata"
-  external_id     = "kratos-pgdata"
-  access_mode     = "single-node-writer"
-  attachment_mode = "file-system"
-}
-
 resource "nomad_job" "pr1sm-id" {
   jobspec = file("./nomad/pr1sm-id.nomad")
 }
