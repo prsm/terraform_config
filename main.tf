@@ -51,6 +51,9 @@ provider "nomad" {
   region  = "global"
 }
 
-resource "nomad_job" "pr1sm-id" {
-  jobspec = file("./nomad/pr1sm-id.nomad")
+resource "nomad_job" "kratos" {
+  jobspec = file("./nomad/kratos.nomad")
+}
+resource "nomad_job" "kratos-psql" {
+  jobspec = file("./nomad/kratos-psql.nomad")
 }
