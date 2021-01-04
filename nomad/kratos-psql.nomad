@@ -28,8 +28,8 @@ job "kratos-psql" {
         read_only   = false
       }
       resources {
-        cpu    = 500 
-        memory = 128 
+        cpu    = 500
+        memory = 1024
         network {
           mbits = 10
           port "http" {
