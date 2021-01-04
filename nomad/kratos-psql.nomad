@@ -31,11 +31,14 @@ job "kratos-psql" {
         cpu    = 500
         memory = 1024
         network {
-          mbits = 10
-          port "http" {
+          port "psql" {
             static = "5432"
           }
         }
+      }
+      service {
+        name = "kratos-psql"
+        port = "psql"
       }
     }
   }
