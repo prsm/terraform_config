@@ -17,6 +17,14 @@ job "kratos" {
       resources {
         cpu = 500
         memory = 1024
+        network {
+          mbits = 10
+          port "lb" {}
+        }
+      }
+      service {
+        name = "load-balancer"
+        port = "lb"
       }
     }
   }
