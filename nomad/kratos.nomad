@@ -18,7 +18,7 @@ job "kratos" {
         cpu = 500
         memory = 1024
         network {
-          port "kratos" {}
+          port "krts" {}
         }
       }
       service {
