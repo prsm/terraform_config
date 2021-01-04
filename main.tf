@@ -9,6 +9,11 @@ terraform {
       source  = "hashicorp/nomad"
       version = "1.4.11"
     }
+
+    consul = {
+      source = "hashicorp/consul"
+      version = "2.10.1"
+    }
   }
   backend "remote" {
     hostname     = "app.terraform.io"
@@ -30,6 +35,10 @@ variable "nomad_address" {}
 
 provider "hcloud" {
   token = var.hcloud_token
+}
+
+provider "consul" {
+  datacenter = "dc1"
 }
 
 resource "hcloud_server" "pr1sm-hub" {
